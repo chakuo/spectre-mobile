@@ -16,7 +16,7 @@ import AppBrowser from './appbrowser.js';
 import MenuView from './menuview.js';
 import Drawer from 'react-native-drawer';
 
-class ex1 extends Component {
+class Spectre extends Component {
     menuItems = [
         {
             name: 'Stacks',
@@ -75,4 +75,4 @@ class ex1 extends Component {
     }
 }
 
-AppRegistry.registerComponent('ex1', () => ex1);
+AppRegistry.registerComponent('Spectre', () => Spectre);
