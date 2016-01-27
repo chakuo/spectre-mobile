@@ -1,4 +1,4 @@
-import React, {PropTypes, View, ScrollView, Dimensions, StyleSheet} from 'react-native'
+import React, {PropTypes, Text, View, ListView, Dimensions, StyleSheet} from 'react-native'
 import { createStyles, minWidth } from 'react-native-media-queries'
 import AppTile from './apptile.js'
 import AppView from './appview.js'
@@ -7,17 +7,32 @@ import { fetchAppsIfNeeded } from './../actions/apps.js'
 export default class AppGrid extends React.Component {
     constructor(props) {
         super(props)
+        this.dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         this.state = {
-            apps: null
+            dataSource: this.dataSource.cloneWithRows([])
         }
     }
 
     componentWillMount() {
         const {store} = this.props.data
         store.dispatch(fetchAppsIfNeeded())
+        //console.log(`width: ${Dimensions.get('window').width} height: ${Dimensions.get('window').height}`)
         this.unsub = store.subscribe(() => {
-            const {apps} = store.getState()
-            this.setState({apps: apps.apps})
+            const {ui, apps} = store.getState()
+            let rows = []
+            let row = null
+            let appcnt = 0
+            let screenWidth = Dimensions.get('window').width
+            const numcols = screenWidth < 600 ? 1 : ui.orientation == 'LANDSCAPE' ? 3 : 2
+            for (var app of apps.apps) {
+                if (appcnt % numcols == 0) {
+                    row = []
+                    rows.push(row)
+                }
+                row.push(app)
+                appcnt++
+            }
+            this.setState({apps: apps, dataSource: this.dataSource.cloneWithRows(rows)})
         })
     }
 
@@ -27,18 +42,17 @@ export default class AppGrid extends React.Component {
     }
 
     render() {
-        const {style} = this.props
-        const {apps} = this.state
-        let tiles = apps ? apps.map(app => {
-            return <AppTile key={app.name} app={app} onAppSelected={() => this._onAppSelected(app)}/>
-        }) : null
-
         return (
-            <ScrollView style={style.scrollView}>
-                <View style={style.container}>
-                    {tiles}
-                </View>
-            </ScrollView>
+            <ListView
+                style={{backgroundColor: '#efefef'}}
+                dataSource={this.state.dataSource}
+                renderRow={row => {
+                    let tiles = row.map(
+                        app => <AppTile key={app.name} app={app} onAppSelected={() => this._onAppSelected(app)}/>
+                    )
+                    return <View style={{flexDirection: 'row'}}>{tiles}</View>
+                }}
+            />
         )
     }
 
@@ -57,13 +71,7 @@ AppGrid.propTypes = {
 
 AppGrid.defaultProps = {
     style: createStyles({
-            scrollView: {},
             container: {flexDirection: 'column', justifyContent: 'center', padding: 0}
-        },
-        minWidth(600, {
-            container: {
-                flexDirection: 'row', flexWrap: 'wrap'
-            }
-        })
+        }
     )
 }
