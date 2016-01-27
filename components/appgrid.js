@@ -1,7 +1,8 @@
-import React, {PropTypes, View, ScrollView, Dimensions} from 'react-native'
+import React, {PropTypes, View, ScrollView, Dimensions, StyleSheet} from 'react-native'
+import { createStyles, minWidth } from 'react-native-media-queries'
 import AppTile from './apptile.js'
 import AppView from './appview.js'
-import { fetchAppsIfNeeded } from './actions/apps.js'
+import { fetchAppsIfNeeded } from './../actions/apps.js'
 
 export default class AppGrid extends React.Component {
     constructor(props) {
@@ -26,14 +27,15 @@ export default class AppGrid extends React.Component {
     }
 
     render() {
+        const {style} = this.props
         const {apps} = this.state
         let tiles = apps ? apps.map(app => {
             return <AppTile key={app.name} app={app} onAppSelected={() => this._onAppSelected(app)}/>
         }) : null
 
         return (
-            <ScrollView>
-                <View style={{flexDirection: 'column', justifyContent: 'center', backgroundColor: '#efefef', padding: 0}}>
+            <ScrollView style={style.scrollView}>
+                <View style={style.container}>
                     {tiles}
                 </View>
             </ScrollView>
@@ -51,4 +53,17 @@ export default class AppGrid extends React.Component {
 
 AppGrid.propTypes = {
     data: PropTypes.object.isRequired
+}
+
+AppGrid.defaultProps = {
+    style: createStyles({
+            scrollView: {},
+            container: {flexDirection: 'column', justifyContent: 'center', padding: 0}
+        },
+        minWidth(600, {
+            container: {
+                flexDirection: 'row', flexWrap: 'wrap'
+            }
+        })
+    )
 }

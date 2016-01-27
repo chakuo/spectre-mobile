@@ -12,8 +12,8 @@ import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
 import { rootReducer } from './reducers/root.js'
 
-import AppBrowser from './appbrowser.js'
-import MenuView from './menuview.js'
+import AppBrowser from './components/appbrowser.js'
+import MenuView from './components/menuview.js'
 import Drawer from 'react-native-drawer'
 
 const createStoreWithMiddleware = applyMiddleware(

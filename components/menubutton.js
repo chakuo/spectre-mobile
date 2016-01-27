@@ -2,7 +2,7 @@
 
 import React, {View, Text, TouchableOpacity} from 'react-native';
 import AwesomeButton from 'react-native-awesome-button';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from '../node_modules/react-native-vector-icons/FontAwesome';
 
 export default class MenuButton extends React.Component {
     constructor(props) {

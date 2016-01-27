@@ -1,49 +1,49 @@
-'use strict';
 
-import React, {View, Text, TextInput, ScrollView, WebView} from 'react-native';
-import AwesomeButton from 'react-native-awesome-button';
-import ComposeView from './composeview.js';
+import React, {View, Text, TextInput, ScrollView, WebView} from 'react-native'
+import AwesomeButton from 'react-native-awesome-button'
+import ComposeView from './composeview.js'
+import gs from '../styles/global.js'
 
 export default class AppView extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             template: null
-        };
+        }
     }
 
     componentWillMount() {
-        let app = this.props.data;
-        let verLink = app.versionLinks[app.version];
+        let app = this.props.data
+        let verLink = app.versionLinks[app.version]
         fetch(verLink)
-            .then((response) => response.json())
-            .then((response) => {
+            .then(response => response.json())
+            .then(response => {
                 this.setState({
                     template: response
-                });
+                })
             })
             .catch((error) => {
-                console.error(error);
-            });
+                console.error(error)
+            })
     }
 
     render() {
-        let app = this.props.data;
-        let template = this.state.template;
+        let app = this.props.data
+        let template = this.state.template
 
-        let fields = template ? template.questions.map((field) => {
+        let fields = template ? template.questions.map(field => {
             return (
                 <View key={field.variable} style={{flexDirection: 'column', marginLeft: 20, marginRight: 20, marginTop: 10}}>
                     <Text style={{}}>{field.label}</Text>
                     <TextInput
                         style={{height: 40, borderColor: '#dddddd', backgroundColor: 'white', borderWidth: 1, marginTop: 10, padding: 10}}
-                        onChangeText={(text) => this.setState({text})}
+                        onChangeText={text => this.setState({text})}
                         value={field.default}
                     />
                     <Text style={{fontSize:10, fontStyle: 'italic', color: 'gray', marginTop: 10}}>{field.description}</Text>
                 </View>
-            );
-        }) : null;
+            )
+        }) : null
 
         let compose = template ? (
             <View>
@@ -55,7 +55,7 @@ export default class AppView extends React.Component {
                             default: {
                                 text: 'Docker Compose',
                                 backgroundColor: '#aaaaaa',
-                                onPress: () => {this._showDockerCompose(template.dockerCompose);}
+                                onPress: () => this._showDockerCompose(template.dockerCompose)
                             }
                         }}/>
                     <AwesomeButton
@@ -64,11 +64,11 @@ export default class AppView extends React.Component {
                             default: {
                                 text: 'Rancher Compose',
                                 backgroundColor: '#aaaaaa',
-                                onPress: () => {this._showRancherCompose(template.rancherCompose);}
+                                onPress: () => this._showRancherCompose(template.rancherCompose)
                             }
                         }}/>
                 </View>
-            </View>) : null;
+            </View>) : null
 
         return (
             <ScrollView style={{backgroundColor: 'white'}}>
@@ -88,7 +88,7 @@ export default class AppView extends React.Component {
                             <Text>Name</Text>
                             <TextInput
                                 style={{height: 40, borderColor: '#dddddd', backgroundColor: 'white', borderWidth: 1, marginTop: 10, padding: 10}}
-                                onChangeText={(text) => this.setState({text})}
+                                onChangeText={text => this.setState({text})}
                                 value=''
                             />
                         </View>
@@ -96,7 +96,7 @@ export default class AppView extends React.Component {
                             <Text>Description</Text>
                             <TextInput
                                 style={{height: 80, borderColor: '#dddddd', backgroundColor: 'white', borderWidth: 1, marginTop: 10, padding: 10}}
-                                onChangeText={(text) => this.setState({text})}
+                                onChangeText={text => this.setState({text})}
                                 value=''
                             />
                         </View>
@@ -112,11 +112,11 @@ export default class AppView extends React.Component {
                             default: {
                                 text: 'Launch',
                                 backgroundColor: '#228b22',
-                                onPress: () => {this._launchApp();}
+                                onPress: () => this._launchApp()
                             }
                         }}/>
                 </View>
-            </ScrollView>);
+            </ScrollView>)
     }
 
     _showDockerCompose(composeText) {
@@ -124,7 +124,7 @@ export default class AppView extends React.Component {
             name: 'Docker Compose',
             component: ComposeView,
             data: composeText
-        });
+        })
     }
 
     _showRancherCompose(composeText) {
@@ -132,7 +132,7 @@ export default class AppView extends React.Component {
             name: 'Rancher Compose',
             component: ComposeView,
             data: composeText
-        });
+        })
     }
 
     _launchApp() {

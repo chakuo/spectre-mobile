@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {View, Text, Image, WebView, ScrollView, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from '../node_modules/react-native-vector-icons/FontAwesome';
 
 export default class MenuView extends React.Component {
     constructor(props) {
