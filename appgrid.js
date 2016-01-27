@@ -1,35 +1,35 @@
-'use strict';
-
-import React, {View, ScrollView, Dimensions} from 'react-native';
-import AppTile from './apptile.js';
-import AppView from './appview.js';
+import React, {PropTypes, View, ScrollView, Dimensions} from 'react-native'
+import AppTile from './apptile.js'
+import AppView from './appview.js'
+import { fetchAppsIfNeeded } from './actions/apps.js'
 
 export default class AppGrid extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             apps: null
-        };
+        }
     }
 
     componentWillMount() {
-        fetch('http://52.70.143.76:8080/v1-catalog/templates')
-            .then((response) => response.json())
-            .then((response) => {
-                this.setState({
-                    apps: response.data
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        const {store} = this.props.data
+        store.dispatch(fetchAppsIfNeeded())
+        this.unsub = store.subscribe(() => {
+            const {apps} = store.getState()
+            this.setState({apps: apps.apps})
+        })
+    }
+
+    componentWillUnmount() {
+        const {store} = this.props.data
+        store.unsubcribe(this.unsub)
     }
 
     render() {
-        let tiles = this.state.apps ?
-            this.state.apps.map(function(app) {
-                return <AppTile key={app.name} app={app} onAppSelected={this._onAppSelected.bind(this)}/>
-            }.bind(this)) : null;
+        const {apps} = this.state
+        let tiles = apps ? apps.map(app => {
+            return <AppTile key={app.name} app={app} onAppSelected={() => this._onAppSelected(app)}/>
+        }) : null
 
         return (
             <ScrollView>
@@ -37,7 +37,7 @@ export default class AppGrid extends React.Component {
                     {tiles}
                 </View>
             </ScrollView>
-        );
+        )
     }
 
     _onAppSelected(app) {
@@ -45,6 +45,10 @@ export default class AppGrid extends React.Component {
             name: app.name,
             component: AppView,
             data: app
-        });
+        })
     }
+}
+
+AppGrid.propTypes = {
+    data: PropTypes.object.isRequired
 }

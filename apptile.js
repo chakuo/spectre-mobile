@@ -1,4 +1,3 @@
-'use strict';
 
 import React, {View, Text, Image, WebView, TouchableOpacity} from 'react-native';
 
