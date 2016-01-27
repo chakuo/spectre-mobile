@@ -1,6 +1,7 @@
 import React, {View, Navigator, Text, PropTypes} from 'react-native';
 import Router from 'react-native-router';
 import AppGrid from './appgrid.js';
+import AppGrid2 from './appgrid2.js';
 import MenuButton from './menubutton.js';
 
 export default class AppBrowser extends React.Component {
@@ -8,7 +9,7 @@ export default class AppBrowser extends React.Component {
         super(props);
         this.firstRoute = {
             name: 'Catalog',
-            component: AppGrid,
+            component: AppGrid2,
             leftCorner: MenuButton,
             data: {store: this.props.store}
         }

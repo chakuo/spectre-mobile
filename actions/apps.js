@@ -8,7 +8,6 @@ function invalidateApps() {
 
 export const REQUEST_APPS = 'REQUEST_APPS'
 function requestApps() {
-    console.log('requestApps')
     return {
         type: REQUEST_APPS
     }
@@ -16,7 +15,6 @@ function requestApps() {
 
 export const RECEIVE_APPS = 'RECEIVE_APPS'
 function recieveApps(apps) {
-    console.log('recieveApps')
     return {
         type: RECEIVE_APPS,
         apps: apps,
@@ -25,7 +23,6 @@ function recieveApps(apps) {
 }
 
 function fetchApps() {
-    console.log('fetchApps')
     return dispatch => {
         dispatch(requestApps())
 
@@ -41,7 +38,6 @@ function fetchApps() {
 }
 
 function shouldFetchApps(state) {
-    console.log('shouldFetchApps')
     const {apps} = state
     if (!apps.apps)
         return true
@@ -52,7 +48,6 @@ function shouldFetchApps(state) {
 }
 
 export function fetchAppsIfNeeded() {
-    console.log('fetchAppsIfNeeded')
     return (dispatch, getState) => {
         if (shouldFetchApps(getState()))
             return dispatch(fetchApps())

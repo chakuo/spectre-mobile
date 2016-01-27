@@ -14,7 +14,7 @@ export default class AppTile extends React.Component {
         const {app, style} = this.props
 
         return (
-            <TouchableOpacity onPress={() => this._onTouchDown()}>
+            <TouchableOpacity style={{flex: 1}} onPress={() => this._onTouchDown()}>
                 <View style={style.container}>
                     <View style={style.icon}>
                         <WebView html={`<html><body style='margin:0'><div style='width: 100%; height: 100%; background: url(${app.iconLink}); background-repeat: no-repeat; background-size: contain; background-position: center;'/></body></html>`}/>
@@ -42,6 +42,7 @@ AppTile.defaultProps = {
             paddingLeft: 20,
             paddingRight: 20,
             marginTop: 1,
+            marginLeft: 1,
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center'
@@ -58,9 +59,5 @@ AppTile.defaultProps = {
         description: {
             fontSize: 10, fontStyle: 'italic'
         }
-    }, minWidth(600, {
-        container: {
-            width: 300
-        }
-    }))
+    })
 }

@@ -26,6 +26,7 @@
 		BA2F832D1C51802600B11079 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA2F83291C51802500B11079 /* Foundation.ttf */; settings = {ASSET_TAGS = (); }; };
 		BA2F832E1C51802600B11079 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA2F832A1C51802500B11079 /* Ionicons.ttf */; settings = {ASSET_TAGS = (); }; };
 		BA2F832F1C51802600B11079 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA2F832B1C51802600B11079 /* MaterialIcons.ttf */; settings = {ASSET_TAGS = (); }; };
+		BAC444B41C594F1700EB0E55 /* Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC444B31C594F1700EB0E55 /* Orientation.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,8 @@
 		BA2F83291C51802500B11079 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		BA2F832A1C51802500B11079 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		BA2F832B1C51802600B11079 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		BAC444B21C594F1700EB0E55 /* Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Orientation.h; sourceTree = "<group>"; };
+		BAC444B31C594F1700EB0E55 /* Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Orientation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +296,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				BAC444B11C594F1700EB0E55 /* RCTOrientation */,
 				BA5C8F981C516CD4007C3CBC /* Icons */,
 				13B07FAE1A68108700A75B9A /* Spectre */,
 				BA7363BD1C4EBBB500CBC536 /* Frameworks */,
@@ -329,6 +333,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BAC444B11C594F1700EB0E55 /* RCTOrientation */ = {
+			isa = PBXGroup;
+			children = (
+				BAC444B21C594F1700EB0E55 /* Orientation.h */,
+				BAC444B31C594F1700EB0E55 /* Orientation.m */,
+			);
+			name = RCTOrientation;
+			path = "../node_modules/react-native-orientation/RCTOrientation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -574,6 +588,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				BAC444B41C594F1700EB0E55 /* Orientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,6 @@ function invalidateAppDetails(app) {
 
 export const REQUEST_APP_DETAILS = 'REQUEST_APP_DETAILS'
 function requestAppDetails(app) {
-    console.log('requestAppDetails')
     return {
         type: REQUEST_APP_DETAILS,
         app: app
@@ -18,7 +17,6 @@ function requestAppDetails(app) {
 
 export const RECEIVE_APP_DETAILS = 'RECEIVE_APP_DETAILS'
 function recieveAppDetails(app, details) {
-    console.log('recieveApp')
     return {
         type: RECEIVE_APP_DETAILS,
         app: app,
@@ -28,7 +26,6 @@ function recieveAppDetails(app, details) {
 }
 
 function fetchAppDetails(app) {
-    console.log('fetchAppDetails')
     return dispatch => {
         dispatch(requestAppDetails(app))
 
@@ -45,7 +42,6 @@ function fetchAppDetails(app) {
 }
 
 function shouldFetchAppDetails(app) {
-    console.log('shouldFetchAppDetails')
     if (!app.details)
         return true
     else if (app.isFetchingDetails)
@@ -55,7 +51,6 @@ function shouldFetchAppDetails(app) {
 }
 
 export function fetchAppDetailsIfNeeded(app) {
-    console.log('fetchAppDetailsIfNeeded')
     return (dispatch, getState) => {
         if (shouldFetchApp(getState()))
             return dispatch(fetchAppDetails())

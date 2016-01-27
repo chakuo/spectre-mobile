@@ -11,18 +11,15 @@ export function apps(state = {
 }, action) {
     switch (action.type) {
         case INVALIDATE_APPS:
-            console.log('INVALIDATE_APPS')
             return Object.assign({}, state, {
                 didInvalidate: true
             })
         case REQUEST_APPS:
-            console.log('REQUEST_APPS')
             return Object.assign({}, state, {
                 isFetching: true,
                 didInvalidate: false
             })
         case RECEIVE_APPS:
-            console.log('RECEIVE_APPS')
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
