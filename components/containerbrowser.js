@@ -1,26 +1,26 @@
-import React, {View, Navigator, Text, PropTypes} from 'react-native'
+import React, {Component, View, Navigator, Text, PropTypes} from 'react-native'
 
 import Router from 'react-native-router'
-import AppGrid from './appgrid.js'
+import ContainerGrid from './containergrid.js'
 import MenuButton from './menubutton.js'
-import IconTitle from './icontitle.js'
+import IconTitle from './icontitle'
 
-class AppTitleIcon extends IconTitle {
+class ContainerTitleIcon extends IconTitle {
 
 }
 
-AppTitleIcon.defaultProps = Object.assign({}, IconTitle.defaultProps, {
-    title: 'Catalog',
-    icon: 'map'
+ContainerTitleIcon.defaultProps = Object.assign({}, IconTitle.defaultProps, {
+    title: 'Containers',
+    icon: 'cubes'
 })
 
-export default class AppBrowser extends React.Component {
+export default class ContainerBrowser extends Component {
     constructor(props) {
         super(props)
         this.firstRoute = {
-            name: 'Catalog',
-            component: AppGrid,
-            titleComponent: AppTitleIcon,
+            name: 'Containers',
+            component: ContainerGrid,
+            titleComponent: ContainerTitleIcon,
             leftCorner: MenuButton,
             data: {store: this.props.store}
         }
@@ -38,6 +38,6 @@ export default class AppBrowser extends React.Component {
     }
 }
 
-AppBrowser.propTypes = {
+ContainerBrowser.propTypes = {
     store: PropTypes.object.isRequired
 }

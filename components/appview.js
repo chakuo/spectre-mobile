@@ -1,10 +1,10 @@
 
-import React, {View, Text, TextInput, ScrollView, WebView} from 'react-native'
+import React, {Component, View, Text, TextInput, ScrollView, WebView} from 'react-native'
 import AwesomeButton from 'react-native-awesome-button'
 import ComposeView from './composeview.js'
 import gs from '../styles/global.js'
 
-export default class AppView extends React.Component {
+export default class AppView extends Component {
     constructor(props) {
         super(props)
         this.state = {

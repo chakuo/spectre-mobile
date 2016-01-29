@@ -1,15 +1,19 @@
 import React, {PropTypes, Text, View, ListView, Dimensions, StyleSheet} from 'react-native'
-import { createStyles, minWidth } from 'react-native-media-queries'
+
 import AppTile from './apptile.js'
 import AppView from './appview.js'
+
+import { createStyles, minWidth } from 'react-native-media-queries'
 import { fetchAppsIfNeeded } from './../actions/apps.js'
 
 export default class AppGrid extends React.Component {
     constructor(props) {
         super(props)
+        const {store} = this.props.data
+        const {apps} = store.getState()
         this.dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         this.state = {
-            dataSource: this.dataSource.cloneWithRows([])
+            apps: apps ? apps.apps : null
         }
     }
 
@@ -17,35 +21,43 @@ export default class AppGrid extends React.Component {
         const {store} = this.props.data
         store.dispatch(fetchAppsIfNeeded())
         //console.log(`width: ${Dimensions.get('window').width} height: ${Dimensions.get('window').height}`)
-        this.unsub = store.subscribe(() => {
-            const {ui, apps} = store.getState()
-            let rows = []
-            let row = null
-            let appcnt = 0
-            let screenWidth = Dimensions.get('window').width
-            const numcols = screenWidth < 600 ? 1 : ui.orientation == 'LANDSCAPE' ? 3 : 2
-            for (var app of apps.apps) {
-                if (appcnt % numcols == 0) {
-                    row = []
-                    rows.push(row)
-                }
-                row.push(app)
-                appcnt++
-            }
-            this.setState({apps: apps, dataSource: this.dataSource.cloneWithRows(rows)})
+        this.unsubscribeStoreListener = store.subscribe(() => {
+            const {apps} = store.getState()
+            this.setState({apps: apps ? apps.apps : null})
         })
     }
 
     componentWillUnmount() {
-        const {store} = this.props.data
-        store.unsubcribe(this.unsub)
+        this.unsubscribeStoreListener()
     }
 
     render() {
+        const {style} = this.props
+        const {store} = this.props.data
+        const {ui} = store.getState()
+        const {apps} = this.state
+
+        if (!apps)
+            return <View/>
+
+        let rows = []
+        let row = null
+        let appcnt = 0
+        let screenWidth = Dimensions.get('window').width
+        const numcols = screenWidth < 600 ? 1 : ui.orientation == 'LANDSCAPE' ? 3 : 2
+        for (var app of apps) {
+            if (appcnt % numcols == 0) {
+                row = []
+                rows.push(row)
+            }
+            row.push(app)
+            appcnt++
+        }
+
         return (
             <ListView
-                style={{backgroundColor: '#efefef'}}
-                dataSource={this.state.dataSource}
+                style={style.listView}
+                dataSource={this.dataSource.cloneWithRows(rows)}
                 renderRow={row => {
                     let tiles = row.map(
                         app => <AppTile key={app.name} app={app} onAppSelected={() => this._onAppSelected(app)}/>
@@ -71,7 +83,7 @@ AppGrid.propTypes = {
 
 AppGrid.defaultProps = {
     style: createStyles({
-            container: {flexDirection: 'column', justifyContent: 'center', padding: 0}
+            listView: {backgroundColor: '#efefef'}
         }
     )
 }

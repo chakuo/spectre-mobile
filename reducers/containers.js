@@ -1,25 +1,25 @@
-import { INVALIDATE_APPS, REQUEST_APPS, RECEIVE_APPS } from './../actions/apps.js';
+import { INVALIDATE_CONTAINERS, REQUEST_CONTAINERS, RECEIVE_CONTAINERS } from './../actions/containers.js';
 
-export function apps(state = {
+export function containers(state = {
     isFetching: false,
     didInvalidate: false,
-    apps: null
+    containers: null
 }, action) {
     switch (action.type) {
-        case INVALIDATE_APPS:
+        case INVALIDATE_CONTAINERS:
             return Object.assign({}, state, {
                 didInvalidate: true
             })
-        case REQUEST_APPS:
+        case REQUEST_CONTAINERS:
             return Object.assign({}, state, {
                 isFetching: true,
                 didInvalidate: false
             })
-        case RECEIVE_APPS:
+        case RECEIVE_CONTAINERS:
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
-                apps: action.apps,
+                containers: action.containers,
                 lastUpdated: action.receivedAt
             })
         default:

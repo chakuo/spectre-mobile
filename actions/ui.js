@@ -21,3 +21,14 @@ export function orientationChanged() {
         Orientation.getOrientation((err, orientation) => dispatch(updateOrientation(orientation)))
     }
 }
+
+export const SCREEN_CONTAINERS = 'SCREEN_CONTAINERS'
+export const SCREEN_APPS = 'SCREEN_APPS'
+
+export const SET_MAIN_SCREEN = 'SET_MAIN_SCREEN'
+export function setMainScreen(screen) {
+    return {
+        type: SET_MAIN_SCREEN,
+        screen: screen
+    }
+}

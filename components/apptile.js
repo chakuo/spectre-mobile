@@ -1,13 +1,9 @@
-import React, {View, Text, Image, WebView, TouchableOpacity} from 'react-native'
+import React, {Component, View, Text, Image, WebView, TouchableOpacity} from 'react-native'
 import { createStyles, maxHeight, minWidth } from 'react-native-media-queries'
 
-export default class AppTile extends React.Component {
+export default class AppTile extends Component {
     constructor(props) {
         super(props)
-    }
-
-    componentWillMount() {
-
     }
 
     render() {
