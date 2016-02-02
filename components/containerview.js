@@ -18,19 +18,49 @@ export default class ContainerView extends Component {
         const container = this.props.data
         const {style} = this.props
         return (
-            <View key='container' style={style.container}>
-                {this._renderHeader(container)}
-                <Text>{container.name}</Text>
+            <View style={style.container}>
+                {this._renderInfoBox(container)}
             </View>
         )
     }
 
-    _renderHeader(container) {
+    _renderInfoBox(container) {
         const {style} = this.props
         return (
-            <View key='header' style={style.header}>
-                <View key='stateBox' style={this._getStateBoxStyle(container.state)}>
-                    <Text key='stateText' style={style.stateText}>{`State: ${container.state}`}</Text>
+            <View style={style.infoBox}>
+                <View style={style.infoRow}>
+                    <View style={this._getStateBoxStyle(container.state)}>
+                        <Text style={[style.infoLabel, style.stateLabel]}>State: </Text>
+                        <Text style={[style.infoText, style.stateText]}>{container.state}</Text>
+                    </View>
+                </View>
+                <View style={style.infoRow}>
+                    <View style={style.infoCell}>
+                        <Text style={style.infoLabel}>Host Name: </Text>
+                        <Text style={style.infoText}>{container.data.fields.dockerHostIp}</Text>
+                    </View>
+                    <View style={style.infoCell}>
+                        <Text style={style.infoLabel}>Host IP: </Text>
+                        <Text style={style.infoText}>{container.data.fields.dockerHostIp}</Text>
+                    </View>
+                    <View style={style.infoCell}>
+                        <Text style={style.infoLabel}>Container IP: </Text>
+                        <Text style={style.infoText}>{container.data.fields.primaryIpAddress}</Text>
+                    </View>
+                </View>
+                <View style={style.infoRow}>
+                    <View style={style.infoCell}>
+                        <Text style={style.infoLabel}>Image: </Text>
+                        <Text style={style.infoText}>{container.data.dockerContainer.Image}</Text>
+                    </View>
+                    <View style={style.infoCell}>
+                        <Text style={style.infoLabel}>Command: </Text>
+                        <Text style={style.infoText}>{container.data.dockerContainer.Command}</Text>
+                    </View>
+                    <View style={style.infoCell}>
+                        <Text style={style.infoLabel}>Entrypoint: </Text>
+                        <Text style={style.infoText}>{container.entryPoint}</Text>
+                    </View>
                 </View>
             </View>
         )
@@ -49,7 +79,7 @@ export default class ContainerView extends Component {
                 break
         }
 
-        return [style.stateBox, calcStyle]
+        return [style.infoCell, calcStyle]
     }
 }
 
@@ -60,22 +90,46 @@ ContainerView.propTypes = {
 ContainerView.defaultProps = {
     style: createStyles({
         container: {
-
+            padding: 20,
+            backgroundColor: 'white'
         },
-        header: {
-
+        header: {},
+        infoBox: {
+            borderColor: '#eee',
+            borderRightWidth: 1,
+            borderBottomWidth: 1
         },
-        stateBox: {
-            height: 50
+        infoRow: {
+            flexDirection: 'row',
+            borderColor: '#eee',
+            borderTopWidth: 1
         },
+        infoCell: {
+            flexDirection: 'row',
+            flex: 1,
+            alignItems: 'center',
+            paddingLeft: 20,
+            height: 40,
+            borderColor: '#eee',
+            borderLeftWidth: 1
+        },
+        infoLabel: {
+            fontWeight: 'bold'
+        },
+        infoText: {},
         stateBoxRunning: {
             backgroundColor: 'green'
         },
         stateBoxStopped: {
             backgroundColor: 'red'
         },
+        stateLabel: {
+            color: 'white',
+            fontWeight: 'bold'
+        },
         stateText: {
-            color: 'white'
+            color: 'white',
+            fontWeight: 'bold'
         }
     })
 }

@@ -1,4 +1,4 @@
-import {Component, Text, ScrollView} from 'react-native'
+import React, {Component, Text, ScrollView} from 'react-native'
 
 export default class ComposeView extends Component {
     constructor(props) {

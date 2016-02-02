@@ -3,7 +3,7 @@ import Orientation from 'react-native-orientation'
 import { UPDATE_ORIENTATION, SET_MAIN_SCREEN, SCREEN_APPS, SCREEN_CONTAINERS } from './../actions/ui.js';
 
 export function ui(state = {
-    mainScreen: SCREEN_CONTAINERS,
+    mainScreen: SCREEN_APPS,
     orientation: 'PORTRAIT'
 }, action) {
     switch (action.type) {
